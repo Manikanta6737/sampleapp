@@ -1,12 +1,12 @@
 pipeline {
 
   environment {
-    PROJECT = "halodoc-fisclouds"
+    PROJECT = "pro1-265115"
     APP_NAME = "gceme"
     FE_SVC_NAME = "${APP_NAME}-frontend"
-    CLUSTER = "gke-cicd"
+    CLUSTER = "jenkins"
     CLUSTER_ZONE = "us-central1-c"
-    IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+    IMAGE_TAG = "us.gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
 
@@ -35,7 +35,7 @@ spec:
     - cat
     tty: true
   - name: helm
-    image: us.gcr.io/halodoc-fisclouds/helm3
+    image: us.gcr.io/pro1-265115/helm3
     command:
     - cat
     tty: true
@@ -67,7 +67,7 @@ spec:
         container('helm') {
           sh """
           helm ls
-          gcloud container clusters get-credentials gke-apps --zone us-central1-c --project halodoc-fisclouds
+          gcloud container clusters get-credentials jenkins --zone us-central1-c --project pro1-265115
           kubectl get pods
           """ 
         }
